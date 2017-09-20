@@ -20,10 +20,19 @@
 
     <div>
       <h2>GET data from Django API (/api/test)</h2>
-
       <div class="wrapper">
         <p>/api/test</p>
-        <span>foo</span>: <span>{{ testData.foo }}</span>
+        <span>foo</span>: <span>{{ testData }}</span>
+      </div>
+    </div>
+    <div>
+      <h2>GET data from Django restless API (/api/cheese)</h2>
+      <div class="wrapper">
+        <p>/api/cheese</p>
+        <ul>
+         <li v-for="item in cheese">Name: {{ item.name }} Age: {{ item.age }} Color: {{ item.color }}</li>
+      </ul>
+
       </div>
     </div>
 
@@ -38,7 +47,8 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      testData: {}
+      testData: {},
+      cheese: []
     }
   },
   mounted () {
@@ -47,6 +57,10 @@ export default {
     get('/api/test', {}, (res) => {
       console.log(res)
       this.testData = res
+    })
+    get('/api/cheese', {}, (res) => {
+      console.log(res)
+      this.cheese = res.objects
     })
   }
 }
